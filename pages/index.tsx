@@ -55,14 +55,6 @@ export default function Example() {
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full overflow-hidden">
-        ```
-      */}
       <div className="flex h-full flex-col">
         {/* Top nav*/}
         <header className="relative flex h-16 flex-shrink-0 items-center bg-white">
@@ -73,8 +65,9 @@ export default function Example() {
               className="flex h-16 w-16 items-center justify-center bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
             >
               <Image
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=white"
+                height={32}
+                width={32}
+                src="https://tailwindui.com/img/logos/mark.svg"
                 alt="Your Company"
               />
             </a>
@@ -143,7 +136,7 @@ export default function Example() {
                   Inboxes
                 </a>
                 <a href="#" className="text-sm font-medium text-gray-900">
-                  Reporting
+                  Tasks
                 </a>
                 <a href="#" className="text-sm font-medium text-gray-900">
                   Settings
@@ -163,8 +156,10 @@ export default function Example() {
                 <Menu as="div" className="relative inline-block text-left">
                   <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2">
                     <span className="sr-only">Open user menu</span>
-                    <img
-                      className="h-8 w-8 rounded-full"
+                    <Image
+                      className="rounded-full"
+                      height={32}
+                      width={32}
                       src={user.imageUrl}
                       alt=""
                     />
@@ -250,8 +245,10 @@ export default function Example() {
                   >
                     <div className="flex h-16 items-center justify-between px-4 sm:px-6">
                       <a href="#">
-                        <img
-                          className="block h-8 w-auto"
+                        <Image
+                          className="block"
+                          height={32}
+                          width={32}
                           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                           alt="Your Company"
                         />
@@ -311,7 +308,7 @@ export default function Example() {
                     <div className="border-t border-gray-200 pt-4 pb-3">
                       <div className="max-w-8xl mx-auto flex items-center px-4 sm:px-6">
                         <div className="flex-shrink-0">
-                          <img
+                          <Image
                             className="h-10 w-10 rounded-full"
                             src={user.imageUrl}
                             alt=""
