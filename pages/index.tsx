@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import {
@@ -406,7 +407,7 @@ export default function Index() {
             {/* Narrow column (hidden on smaller screens) */}
             <aside className="hidden lg:order-first lg:block lg:flex-shrink-0">
               <div className="relative flex h-full w-96 flex-col overflow-y-auto border-r border-gray-200 bg-gray-100">
-                {/* Your content */}
+                <DynamicMailbox />
               </div>
             </aside>
           </main>
@@ -415,3 +416,10 @@ export default function Index() {
     </>
   )
 }
+
+const DynamicMailbox = dynamic(
+  () => import('../components').then((mod) => mod.Mailbox),
+  {
+    ssr: false,
+  },
+)
