@@ -3,14 +3,13 @@ import Image from 'next/image'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import {
-  ArchiveBoxIcon,
+  InboxStackIcon,
+  ListBulletIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
+  CalendarIcon,
+  PhoneIcon,
   Bars3Icon,
   BellIcon,
-  FlagIcon,
-  InboxIcon,
-  NoSymbolIcon,
-  PencilSquareIcon,
-  UserCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 
@@ -25,32 +24,35 @@ const navigation = [
     name: 'Inboxes',
     href: '#',
     children: [
-      { name: 'Technical Support', href: '#' },
-      { name: 'Sales', href: '#' },
-      { name: 'General', href: '#' },
+      { name: 'Team', href: '#' },
+      { name: 'Private', href: '#' },
     ],
   },
-  { name: 'Reporting', href: '#', children: [] },
+  { name: 'Contacts', href: '#', children: [] },
   { name: 'Settings', href: '#', children: [] },
 ]
 const sidebarNavigation = [
-  { name: 'Open', href: '#', icon: InboxIcon, current: true },
-  { name: 'Archive', href: '#', icon: ArchiveBoxIcon, current: false },
-  { name: 'Customers', href: '#', icon: UserCircleIcon, current: false },
-  { name: 'Flagged', href: '#', icon: FlagIcon, current: false },
-  { name: 'Spam', href: '#', icon: NoSymbolIcon, current: false },
-  { name: 'Drafts', href: '#', icon: PencilSquareIcon, current: false },
+  { name: 'Email', href: '#', icon: InboxStackIcon, current: true },
+  { name: 'Tasks', href: '#', icon: ListBulletIcon, current: false },
+  {
+    name: 'Chat',
+    href: '#',
+    icon: ChatBubbleOvalLeftEllipsisIcon,
+    current: false,
+  },
+  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Phone', href: '#', icon: PhoneIcon, current: false },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -62,7 +64,7 @@ export default function Example() {
           <div className="absolute inset-y-0 left-0 md:static md:flex-shrink-0">
             <a
               href="#"
-              className="flex h-16 w-16 items-center justify-center bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-20"
+              className="flex h-16 w-16 items-center justify-center bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:w-28"
             >
               <Image
                 height={32}
@@ -83,7 +85,7 @@ export default function Example() {
                 id="inbox-select"
                 className="rounded-md border-0 bg-none pl-3 pr-8 text-base font-medium text-gray-900 focus:ring-2 focus:ring-indigo-600"
                 defaultValue={
-                  sidebarNavigation.find((item) => item.current).name
+                  sidebarNavigation.find((item) => item.current)?.name
                 }
               >
                 {sidebarNavigation.map((item) => (
@@ -136,7 +138,7 @@ export default function Example() {
                   Inboxes
                 </a>
                 <a href="#" className="text-sm font-medium text-gray-900">
-                  Tasks
+                  Contacts
                 </a>
                 <a href="#" className="text-sm font-medium text-gray-900">
                   Settings
@@ -309,7 +311,9 @@ export default function Example() {
                       <div className="max-w-8xl mx-auto flex items-center px-4 sm:px-6">
                         <div className="flex-shrink-0">
                           <Image
-                            className="h-10 w-10 rounded-full"
+                            className="rounded-full"
+                            height={40}
+                            width={40}
                             src={user.imageUrl}
                             alt=""
                           />
@@ -354,41 +358,52 @@ export default function Example() {
           {/* Narrow sidebar*/}
           <nav
             aria-label="Sidebar"
-            className="hidden md:block md:flex-shrink-0 md:overflow-y-auto md:bg-gray-800"
+            className="hidden w-28 overflow-y-auto bg-gray-800 md:block"
           >
-            <div className="relative flex w-20 flex-col space-y-3 p-3">
-              {sidebarNavigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-400 hover:bg-gray-700',
-                    'flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg',
-                  )}
-                >
-                  <span className="sr-only">{item.name}</span>
-                  <item.icon className="h-6 w-6" aria-hidden="true" />
-                </a>
-              ))}
+            <div className="flex w-full flex-col items-center py-6">
+              <div className="w-full flex-1 space-y-1 px-2">
+                {sidebarNavigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-400 hover:bg-gray-700 hover:text-white',
+                      'group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium',
+                    )}
+                    aria-current={item.current ? 'page' : undefined}
+                  >
+                    <item.icon
+                      className={classNames(
+                        item.current
+                          ? 'text-white'
+                          : 'text-gray-400 group-hover:text-white',
+                        'h-6 w-6',
+                      )}
+                      aria-hidden="true"
+                    />
+                    <span className="mt-2">{item.name}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </nav>
 
           {/* Main area */}
           <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex">
-            {/* Primary column */}
+            {/* Large column */}
             <section
               aria-labelledby="primary-heading"
               className="flex h-full min-w-0 flex-1 flex-col overflow-y-auto lg:order-last"
             >
               <h1 id="primary-heading" className="sr-only">
-                Home
+                Email Details
               </h1>
               {/* Your content */}
             </section>
 
-            {/* Secondary column (hidden on smaller screens) */}
+            {/* Narrow column (hidden on smaller screens) */}
             <aside className="hidden lg:order-first lg:block lg:flex-shrink-0">
               <div className="relative flex h-full w-96 flex-col overflow-y-auto border-r border-gray-200 bg-gray-100">
                 {/* Your content */}
