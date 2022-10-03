@@ -56,6 +56,10 @@ function classNames(...classes: string[]) {
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const handleThreadClicked = (event: any) => {
+    console.log(event)
+  }
+
   return (
     <>
       <div className="flex h-full flex-col">
@@ -354,9 +358,7 @@ export default function Index() {
           </Transition.Root>
         </header>
 
-        {/* Bottom section */}
         <div className="flex min-h-0 flex-1 overflow-hidden">
-          {/* Narrow sidebar*/}
           <nav
             aria-label="Sidebar"
             className="hidden w-28 overflow-y-auto bg-gray-800 md:block"
@@ -391,25 +393,22 @@ export default function Index() {
             </div>
           </nav>
 
-          {/* Main area */}
-          <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex">
-            {/* Large column */}
-            <section
-              aria-labelledby="primary-heading"
-              className="flex h-full min-w-0 flex-1 flex-col overflow-y-auto lg:order-last"
-            >
-              <h1 id="primary-heading" className="sr-only">
-                Email Details
-              </h1>
-              {/* Your content */}
+          <main className="min-w-0 flex-1 border-t border-gray-200 lg:flex flex-col overflow-y-scroll">
+            {/* Top Mailbox */}
+            <section className="relative flex w-full flex-col border-b border-gray-200 bg-gray-100">
+              <DynamicMailbox
+                header="Team"
+                onThreadClicked={handleThreadClicked}
+              />
             </section>
 
-            {/* Narrow column (hidden on smaller screens) */}
-            <aside className="hidden lg:order-first lg:block lg:flex-shrink-0">
-              <div className="relative flex h-full w-96 flex-col overflow-y-auto border-r border-gray-200 bg-gray-100">
-                <DynamicMailbox />
-              </div>
-            </aside>
+            {/* Bottom Mailbox */}
+            <section className="flex w-full min-w-0 flex-col">
+              <DynamicMailbox
+                header="Private"
+                onThreadClicked={handleThreadClicked}
+              />
+            </section>
           </main>
         </div>
       </div>
